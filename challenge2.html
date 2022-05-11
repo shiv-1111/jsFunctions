@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function binding</title>
+</head>
+
+<body>
+    <header>Function binding example</header>
+    <p id="test"></p>
+    <script>
+        const employee = {
+            first_name: "Shivashish",
+            last_name: "Bhaskar",
+            display: function (){
+                document.getElementById("test").innerHTML = this.first_name + " " + this.last_name;
+            }
+        }
+
+        let displayFullName = employee.display.bind(employee);
+        setTimeout(displayFullName, 1000);
+    </script>
+</body>
+
+</html>
