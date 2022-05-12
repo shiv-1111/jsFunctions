@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Macondo&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /* background: radial-gradient(transparent, #1381db); */
+            background: #34323226;
+            text-shadow: 0.1rem 0.1rem 0.2rem black, -0.1rem -0.1rem 0.2rem black, 0.1rem -0.1rem 0.2rem black, -0.1rem 0.1rem 0.2rem black;
+        }
+        
+        h1 {
+            color: #1381db;
+            font-family: 'Macondo', cursive;
+        }
+        #main {
+            border-radius: 50%;
+            width: 40%;
+            height: 55%;
+            /* margin: 1rem auto; */
+            /* border: 1px solid black; */
+            text-align: center;
+            background: linear-gradient(to bottom, #201f1f, #343232);
+            color: white;
+            font-family: monospace;
+            font-size: 3rem;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 3.2rem;
+            box-shadow: 0.2rem 0.2rem 0.2rem black, -0.2rem -0.2rem 0.2rem black, 0.2rem -0.2rem 0.2rem black, -0.2rem 0.2rem 0.2rem black;
+            /* box-shadow: 0.2rem 0.3rem 0.3rem black, -0.2rem -0.2rem 0.3rem black, 0.2rem -0.3rem 0.3rem black, -0.2rem 0.2rem 0.3rem black; */
+            
+        }
+        #button-container {
+            display: flex;
+            /* gap: 1rem; */
+            align-items: center;
+            background-color: inherit;
+            justify-content: space-between;
+        }
+        button{
+            cursor: pointer;
+            border-radius: 50%;
+            /* width: 100%; */
+            font-size: 1.8rem;
+            background: #343232;
+            padding: 1rem;
+            /* box-shadow: 0.2rem 0.3rem 0.3rem #464646, -0.2rem -0.2rem 0.3rem #464646, 0.2rem -0.3rem 0.3rem #464646, -0.2rem 0.2rem 0.3rem #464646; */
+            box-shadow: 0.1rem 0.1rem 0.2rem black, -0.1rem -0.1rem 0.2rem black, 0.1rem -0.1rem 0.2rem black, -0.1rem 0.1rem 0.2rem black;
+            font-family: 'Comfortaa', cursive;
+        }
+
+        #btn-start:active {
+  background: green;
+  color: #201f1f;
+}
+#btn-stop:active {
+  background: red;
+  color: #201f1f;
+}
+#btn-reset:active {
+  background: yellow;
+  color: #201f1f;
+}
+
+        #btn-start {
+         color: #08c808e8;
+         padding: 1.8rem;
+         font-size: 2rem;
+        }
+        #btn-stop {
+         color: red;
+         position: relative;
+         top: -8rem;
+         padding: 1rem 1.3rem;
+        }
+        #btn-reset {
+         color: yellow;
+         position: relative;
+         top: -8.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="main">
+        <h1>Stopwatch</h1>
+        <p id="timer"><span id="minutes">00</span>:<span id="seconds">00</span>:<span id="milliseconds">00</span></p>
+        <div id="button-container">
+            <button id="btn-stop">Stop</button>
+            <button id="btn-start">Start</button>
+            <button id="btn-reset">Reset</button>
+        </div>
+    </section>
+    <script>
+        window.onload = function () {
+            var minutes = 0;
+            var seconds = 0;
+            var milliseconds = 0;
+            var interval;
+            var appendMinutes = document.getElementById("minutes");
+            var appendSeconds = document.getElementById("seconds");
+            var appendMilliseconds = document.getElementById("milliseconds");
+            var btnStart = document.getElementById("btn-start");
+            var btnStop = document.getElementById("btn-stop");
+            var btnReset = document.getElementById("btn-reset");
+
+
+            btnStart.onclick = function () {
+                interval = setInterval(startTimer, 10);
+            }
+
+            btnStop.onclick = function () {
+                clearInterval(interval);
+            }
+
+            btnReset.onclick = function () {
+                clearInterval(interval);
+                seconds = 0;
+                milliseconds = 0;
+                appendSeconds.innerHTML = "00";
+                appendMilliseconds.innerHTML = "00";
+            }
+
+            function startTimer() {
+                milliseconds++;
+                if (milliseconds <=9) {
+                    appendMilliseconds.innerHTML = "0" + milliseconds;
+                }
+
+                if (milliseconds <= 99) {
+                    appendMilliseconds.innerHTML = milliseconds;
+                }
+                if (milliseconds > 99) {
+                    seconds++;
+                    milliseconds = 0;
+                    appendSeconds.innerHTML = "0" + seconds;
+                    appendMilliseconds.innerHTML = "00";
+                }
+                if (seconds <= 9) {
+                    appendSeconds.innerHTML = "0" + seconds;
+                }
+                if (seconds > 9) {
+                    appendSeconds.innerHTML = seconds;
+                }
+
+
+                if (seconds > 59) {
+                    minutes++;
+                    seconds = 0;
+                    appendMinutes.innerHTML = minutes;
+                    appendSeconds.innerHTML = "00";
+                }
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
